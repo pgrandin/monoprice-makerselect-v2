@@ -1,0 +1,254 @@
+diff --git a/Marlin/Configuration.h b/Marlin/Configuration.h
+index 6f722714c..a6ccfd5fa 100644
+--- Marlin/Configuration.h
++++ Marlin/Configuration.h
+@@ -104,7 +104,7 @@
+  *
+  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
+  */
+-#define SERIAL_PORT 0
++#define SERIAL_PORT -1
+ 
+ /**
+  * Select a secondary serial port on the board to use for communication with the host.
+@@ -132,12 +132,12 @@
+ // The following define selects which electronics board you have.
+ // Please choose the name from boards.h that matches your setup
+ #ifndef MOTHERBOARD
+-  #define MOTHERBOARD BOARD_RAMPS_14_EFB
++  #define MOTHERBOARD BOARD_MKS_SBASE
+ #endif
+ 
+ // Optional custom name for your RepStrap or other custom machine
+ // Displayed in the LCD "Ready" message
+-//#define CUSTOM_MACHINE_NAME "3D Printer"
++#define CUSTOM_MACHINE_NAME "Monoprice"
+ 
+ // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
+ // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
+@@ -150,7 +150,7 @@
+ #define EXTRUDERS 1
+ 
+ // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
+-#define DEFAULT_NOMINAL_FILAMENT_DIA 3.0
++#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
+ 
+ // For Cyclops or any "multi-extruder" that shares a single nozzle.
+ //#define SINGLENOZZLE
+@@ -333,7 +333,7 @@
+ #define TEMP_SENSOR_3 0
+ #define TEMP_SENSOR_4 0
+ #define TEMP_SENSOR_5 0
+-#define TEMP_SENSOR_BED 0
++#define TEMP_SENSOR_BED 1
+ #define TEMP_SENSOR_CHAMBER 0
+ 
+ // Dummy thermistor constant temperature readings, for use with 998 and 999
+@@ -400,9 +400,9 @@
+   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
+ 
+   // Ultimaker
+-  #define DEFAULT_Kp 22.2
+-  #define DEFAULT_Ki 1.08
+-  #define DEFAULT_Kd 114
++  //#define DEFAULT_Kp 22.2
++  //#define DEFAULT_Ki 1.08
++  //#define DEFAULT_Kd 114
+ 
+   // MakerGear
+   //#define DEFAULT_Kp 7.0
+@@ -414,6 +414,11 @@
+   //#define DEFAULT_Ki 2.25
+   //#define DEFAULT_Kd 440
+ 
++  // Monoprice I3
++  #define DEFAULT_Kp 22.001600
++  #define DEFAULT_Ki 1.160269
++  #define DEFAULT_Kd 104.301331
++
+ #endif // PIDTEMP
+ 
+ //===========================================================================
+@@ -433,7 +438,7 @@
+  * heater. If your configuration is significantly different than this and you don't understand
+  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
+  */
+-//#define PIDTEMPBED
++#define PIDTEMPBED
+ 
+ //#define BED_LIMIT_SWITCHING
+ 
+@@ -561,9 +566,9 @@
+ #endif
+ 
+ // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
+-#define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+-#define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+-#define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
++#define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
++#define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
++#define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+ #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+ #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+ #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+@@ -583,14 +588,14 @@
+  *          TMC5130, TMC5130_STANDALONE
+  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE']
+  */
+-//#define X_DRIVER_TYPE  A4988
+-//#define Y_DRIVER_TYPE  A4988
+-//#define Z_DRIVER_TYPE  A4988
++#define X_DRIVER_TYPE  DRV8825
++#define Y_DRIVER_TYPE  DRV8825
++#define Z_DRIVER_TYPE  DRV8825
+ //#define X2_DRIVER_TYPE A4988
+ //#define Y2_DRIVER_TYPE A4988
+-//#define Z2_DRIVER_TYPE A4988
++#define Z2_DRIVER_TYPE DRV8825
+ //#define Z3_DRIVER_TYPE A4988
+-//#define E0_DRIVER_TYPE A4988
++#define E0_DRIVER_TYPE DRV8825
+ //#define E1_DRIVER_TYPE A4988
+ //#define E2_DRIVER_TYPE A4988
+ //#define E3_DRIVER_TYPE A4988
+@@ -640,7 +645,7 @@
+  * Override with M92
+  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
+  */
+-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 4000, 500 }
++#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 180 }
+ 
+ /**
+  * Default Max Feed Rate (mm/s)
+@@ -655,7 +660,7 @@
+  * Override with M201
+  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
+  */
+-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
++#define DEFAULT_MAX_ACCELERATION      { 800, 800, 100, 10000 }
+ 
+ /**
+  * Default Acceleration (change/s) change = mm/s
+@@ -665,7 +670,7 @@
+  *   M204 R    Retract Acceleration
+  *   M204 T    Travel Acceleration
+  */
+-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
++#define DEFAULT_ACCELERATION          800    // X, Y, Z and E acceleration for printing moves
+ #define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
+ #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
+ 
+@@ -904,8 +909,8 @@
+ 
+ // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
+ #define INVERT_X_DIR false
+-#define INVERT_Y_DIR true
+-#define INVERT_Z_DIR false
++#define INVERT_Y_DIR false
++#define INVERT_Z_DIR true
+ 
+ // @section extruder
+ 
+@@ -1046,7 +1051,7 @@
+ //#define AUTO_BED_LEVELING_LINEAR
+ //#define AUTO_BED_LEVELING_BILINEAR
+ //#define AUTO_BED_LEVELING_UBL
+-//#define MESH_BED_LEVELING
++#define MESH_BED_LEVELING
+ 
+ /**
+  * Normally G28 leaves leveling disabled on completion. Enable
+@@ -1168,7 +1173,7 @@
+  * Add a bed leveling sub-menu for ABL or MBL.
+  * Include a guided procedure if manual probing is enabled.
+  */
+-//#define LCD_BED_LEVELING
++#define LCD_BED_LEVELING
+ 
+ #if ENABLED(LCD_BED_LEVELING)
+   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
+@@ -1177,7 +1182,7 @@
+ #endif
+ 
+ // Add a menu item to move between bed corners for manual bed adjustment
+-//#define LEVEL_BED_CORNERS
++#define LEVEL_BED_CORNERS
+ 
+ #if ENABLED(LEVEL_BED_CORNERS)
+   #define LEVEL_CORNERS_INSET 30    // (mm) An inset for corner leveling
+@@ -1219,8 +1224,8 @@
+ #endif
+ 
+ // Homing speeds (mm/m)
+-#define HOMING_FEEDRATE_XY (50*60)
+-#define HOMING_FEEDRATE_Z  (4*60)
++#define HOMING_FEEDRATE_XY (100*60)
++#define HOMING_FEEDRATE_Z  (16*60)
+ 
+ // Validate that endstops are triggered on homing moves
+ #define VALIDATE_HOMING_ENDSTOPS
+@@ -1792,7 +1797,7 @@
+ //
+ // LCD for Melzi Card with Graphical LCD
+ //
+-//#define LCD_FOR_MELZI
++#define LCD_FOR_MELZI
+ 
+ //
+ // SSD1306 OLED full graphics generic display
+diff --git a/Marlin/Configuration_adv.h b/Marlin/Configuration_adv.h
+index f967e3af8..98a2db0d5 100644
+--- Marlin/Configuration_adv.h
++++ Marlin/Configuration_adv.h
+@@ -74,8 +74,8 @@
+  * THERMAL_PROTECTION_HYSTERESIS and/or THERMAL_PROTECTION_PERIOD
+  */
+ #if ENABLED(THERMAL_PROTECTION_HOTENDS)
+-  #define THERMAL_PROTECTION_PERIOD 40        // Seconds
+-  #define THERMAL_PROTECTION_HYSTERESIS 4     // Degrees Celsius
++  #define THERMAL_PROTECTION_PERIOD 70        // Seconds
++  #define THERMAL_PROTECTION_HYSTERESIS 10    // Degrees Celsius
+ 
+   /**
+    * Whenever an M104, M109, or M303 increases the target temperature, the
+@@ -329,7 +329,7 @@
+   #endif
+ #endif
+ 
+-//#define Z_DUAL_STEPPER_DRIVERS
++#define Z_DUAL_STEPPER_DRIVERS
+ #if ENABLED(Z_DUAL_STEPPER_DRIVERS)
+   //#define Z_DUAL_ENDSTOPS
+   #if ENABLED(Z_DUAL_ENDSTOPS)
+@@ -459,7 +459,7 @@
+ // @section lcd
+ 
+ #if ENABLED(ULTIPANEL)
+-  #define MANUAL_FEEDRATE {50*60, 50*60, 4*60, 60} // Feedrates for manual moves along X, Y, Z, E from panel
++  #define MANUAL_FEEDRATE {50*60, 50*60, 4*60, 10*60} // Feedrates for manual moves along X, Y, Z, E from panel
+   #define MANUAL_E_MOVES_RELATIVE // Show LCD extruder moves as relative rather than absolute positions
+   #define ULTIPANEL_FEEDMULTIPLY  // Comment to disable setting feedrate multiplier via encoder
+ #endif
+@@ -562,7 +562,7 @@
+ //#define DAC_MOTOR_CURRENT_DEFAULT { 70, 80, 90, 80 }    // Default drive percent - X, Y, Z, E axis
+ 
+ // Use an I2C based DIGIPOT (e.g., Azteeg X3 Pro)
+-//#define DIGIPOT_I2C
++#define DIGIPOT_I2C
+ #if ENABLED(DIGIPOT_I2C) && !defined(DIGIPOT_I2C_ADDRESS_A)
+   /**
+    * Common slave addresses:
+@@ -578,10 +578,11 @@
+ #endif
+ 
+ //#define DIGIPOT_MCP4018          // Requires library from https://github.com/stawel/SlowSoftI2CMaster
+-#define DIGIPOT_I2C_NUM_CHANNELS 8 // 5DPRINT: 4     AZTEEG_X3_PRO: 8     MKS SBASE: 5
++#define DIGIPOT_I2C_NUM_CHANNELS 5 // 5DPRINT: 4     AZTEEG_X3_PRO: 8     MKS SBASE: 5
+ // Actual motor currents in Amps. The number of entries must match DIGIPOT_I2C_NUM_CHANNELS.
+ // These correspond to the physical drivers, so be mindful if the order is changed.
+-#define DIGIPOT_I2C_MOTOR_CURRENTS { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 }  //  AZTEEG_X3_PRO
++// #define DIGIPOT_I2C_MOTOR_CURRENTS { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 }  //  AZTEEG_X3_PRO
++#define DIGIPOT_I2C_MOTOR_CURRENTS { 1, 1, 0.7, 1, 0.7 }  //  MKS SBASE: 5
+ 
+ //===========================================================================
+ //=============================Additional Features===========================
