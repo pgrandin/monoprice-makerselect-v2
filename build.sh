@@ -4,3 +4,4 @@ docker cp marlin:/sbase/Marlin/.pioenvs/LPC1768/firmware.bin .
 docker rm marlin
 md5sum firmware.bin
 scp firmware.bin octoprint:
+mv firmware.bin `git rev-parse HEAD`.bin
