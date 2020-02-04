@@ -1,5 +1,5 @@
 diff --git Marlin/Configuration.h Marlin/Configuration.h
-index e41bae29b..c51117b63 100644
+index e41bae29b..9fc38adc6 100644
 --- Marlin/Configuration.h
 +++ Marlin/Configuration.h
 @@ -103,7 +103,7 @@
@@ -43,6 +43,15 @@ index e41bae29b..c51117b63 100644
  #define TEMP_SENSOR_CHAMBER 0
  
  // Dummy thermistor constant temperature readings, for use with 998 and 999
+@@ -444,7 +444,7 @@
+ // Above this temperature the heater will be switched off.
+ // This can protect components from overheating, but NOT from shorts and failures.
+ // (Use MINTEMP for thermistor short/failure protection.)
+-#define HEATER_0_MAXTEMP 275
++#define HEATER_0_MAXTEMP 300
+ #define HEATER_1_MAXTEMP 275
+ #define HEATER_2_MAXTEMP 275
+ #define HEATER_3_MAXTEMP 275
 @@ -476,9 +476,9 @@
    // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
  
