@@ -92,13 +92,11 @@ index e41bae29b..9fc38adc6 100644
  // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 -#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 -#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
--#define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 +#define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 +#define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
-+#define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+ #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
  #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
  #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
- #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 @@ -661,14 +666,14 @@
   *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
   * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
