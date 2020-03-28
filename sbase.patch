@@ -173,15 +173,15 @@ index e41bae29b..9fc38adc6 100644
  
  // @section extruder
  
-@@ -1172,7 +1177,7 @@
- //#define AUTO_BED_LEVELING_LINEAR
+@@ -1169,7 +1174,7 @@
+  *   With an LCD controller the process is guided step-by-step.
+  */
+ //#define AUTO_BED_LEVELING_3POINT
+-//#define AUTO_BED_LEVELING_LINEAR
++#define AUTO_BED_LEVELING_LINEAR
  //#define AUTO_BED_LEVELING_BILINEAR
  //#define AUTO_BED_LEVELING_UBL
--//#define MESH_BED_LEVELING
-+#define MESH_BED_LEVELING
- 
- /**
-  * Normally G28 leaves leveling disabled on completion. Enable
+ //#define MESH_BED_LEVELING
 @@ -1276,7 +1281,7 @@
   * Add a bed leveling sub-menu for ABL or MBL.
   * Include a guided procedure if manual probing is enabled.
