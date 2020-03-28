@@ -70,9 +70,9 @@ index e41bae29b..9fc38adc6 100644
    //#define DEFAULT_Kd 440
  
 +  // Monoprice I3
-+  #define DEFAULT_Kp 22.001600
-+  #define DEFAULT_Ki 1.160269
-+  #define DEFAULT_Kd 104.301331
++  #define DEFAULT_Kp 31.45
++  #define DEFAULT_Ki 3.05
++  #define DEFAULT_Kd 81.14
 +
  #endif // PIDTEMP
  
