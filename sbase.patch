@@ -86,7 +86,21 @@ index e41bae29b..9fc38adc6 100644
  
  //#define BED_LIMIT_SWITCHING
  
-@@ -638,9 +643,9 @@
+@@ -527,10 +532,9 @@
+ 
+   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
+   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
+-  #define DEFAULT_bedKp 10.00
+-  #define DEFAULT_bedKi .023
+-  #define DEFAULT_bedKd 305.4
+-
++  #define DEFAULT_bedKp 143.68
++  #define DEFAULT_bedKi 27.58
++  #define DEFAULT_bedKd 499.06
+   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
+   //from pidautotune
+   //#define DEFAULT_bedKp 97.1
+@@ -638,8 +642,8 @@
  #endif
  
  // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
