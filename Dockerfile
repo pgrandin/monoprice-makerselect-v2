@@ -43,6 +43,13 @@ RUN cd /sbase/Marlin && sed -i -e 's@//#define LEVEL_BED_CORNERS@#define LEVEL_B
 # Enable EEPROM
 RUN cd /sbase/Marlin && sed -i -e 's@//#define EEPROM_SETTINGS@#define EEPROM_SETTINGS@w changelog' Marlin/Configuration.h && [ -s changelog ]
 
+# Z Offset
+RUN cd /sbase/Marlin && sed -i -e 's@//#define PROBE_OFFSET_WIZARD @#define PROBE_OFFSET_WIZARD @w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+RUN cd /sbase/Marlin && sed -i -e 's@//#define PROBE_OFFSET_WIZARD_START_Z@#define PROBE_OFFSET_WIZARD_START_Z@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+RUN cd /sbase/Marlin && sed -i -e 's@//#define BABYSTEP_DISPLAY_TOTAL@#define BABYSTEP_DISPLAY_TOTAL@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+RUN cd /sbase/Marlin && sed -i -e 's@//#define BABYSTEP_ZPROBE_OFFSET@#define BABYSTEP_ZPROBE_OFFSET@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+
+
 # Calibration
 RUN cd /sbase/Marlin && sed -i -e 's@#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }@#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 1650 }@w changelog' Marlin/Configuration.h && [ -s changelog ]
 RUN cd /sbase/Marlin && sed -i -e 's@#define HOMING_FEEDRATE_MM_M { (50\*60), (50\*60), (4\*60) }@#define HOMING_FEEDRATE_MM_M { (100*60), (100*60), (16*60) }@w changelog' Marlin/Configuration.h && [ -s changelog ]
