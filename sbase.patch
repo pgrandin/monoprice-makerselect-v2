@@ -1,26 +1,17 @@
 diff --git a/Marlin/Configuration.h b/Marlin/Configuration.h
-index c50af25e63..8256a02eaa 100644
+index f0fc4dd7d6..ab8fc07faa 100644
 --- Marlin/Configuration.h
 +++ Marlin/Configuration.h
 @@ -102,7 +102,7 @@
-  *
-  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
-  */
--#define SERIAL_PORT 0
-+#define SERIAL_PORT -1
- 
- /**
-  * Serial Port Baud Rate
-@@ -139,7 +139,7 @@
- 
+
  // Choose the name from boards.h that matches your setup
  #ifndef MOTHERBOARD
 -  #define MOTHERBOARD BOARD_RAMPS_14_EFB
 +  #define MOTHERBOARD BOARD_MKS_SBASE
  #endif
- 
- // Name displayed in the LCD "Ready" message and Info menu
-@@ -495,7 +495,7 @@
+
+ /**
+@@ -494,7 +494,7 @@
  #define TEMP_SENSOR_5 0
  #define TEMP_SENSOR_6 0
  #define TEMP_SENSOR_7 0
@@ -29,18 +20,18 @@ index c50af25e63..8256a02eaa 100644
  #define TEMP_SENSOR_PROBE 0
  #define TEMP_SENSOR_CHAMBER 0
  #define TEMP_SENSOR_COOLER 0
-@@ -624,7 +624,7 @@
+@@ -623,7 +623,7 @@
   * heater. If your configuration is significantly different than this and you don't understand
   * the issues involved, don't use bed PID until someone else verifies that your hardware works.
   */
 -//#define PIDTEMPBED
 +#define PIDTEMPBED
- 
+
  //#define BED_LIMIT_SWITCHING
- 
+
 @@ -829,8 +829,8 @@
  #endif
- 
+
  // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 -#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 -#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -79,7 +70,7 @@ index c50af25e63..8256a02eaa 100644
   */
 -#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }
 +#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 1650 }
- 
+
  /**
   * Default Max Feed Rate (mm/s)
 @@ -1087,7 +1087,7 @@
@@ -88,7 +79,7 @@ index c50af25e63..8256a02eaa 100644
   */
 -//#define BLTOUCH
 +#define BLTOUCH
- 
+
  /**
   * Touch-MI Probe by hotends.fr
 @@ -1179,7 +1179,7 @@
@@ -97,11 +88,11 @@ index c50af25e63..8256a02eaa 100644
   */
 -#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
 +#define NOZZLE_TO_PROBE_OFFSET { -24, -36, 0 }
- 
+
  // Most probes should stay away from the edges of the bed, but
  // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-@@ -1322,8 +1322,8 @@
- 
+@@ -1331,8 +1331,8 @@
+
  // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
  #define INVERT_X_DIR false
 -#define INVERT_Y_DIR true
@@ -111,18 +102,18 @@ index c50af25e63..8256a02eaa 100644
  //#define INVERT_I_DIR false
  //#define INVERT_J_DIR false
  //#define INVERT_K_DIR false
-@@ -1369,8 +1369,8 @@
+@@ -1378,8 +1378,8 @@
  // @section machine
- 
+
  // The size of the printable area
 -#define X_BED_SIZE 200
 -#define Y_BED_SIZE 200
 +#define X_BED_SIZE 206
 +#define Y_BED_SIZE 210
- 
+
  // Travel limits (mm) after homing, corresponding to endstop positions.
  #define X_MIN_POS 0
-@@ -1535,7 +1535,7 @@
+@@ -1544,7 +1544,7 @@
   *   With an LCD controller the process is guided step-by-step.
   */
  //#define AUTO_BED_LEVELING_3POINT
@@ -131,45 +122,45 @@ index c50af25e63..8256a02eaa 100644
  //#define AUTO_BED_LEVELING_BILINEAR
  //#define AUTO_BED_LEVELING_UBL
  //#define MESH_BED_LEVELING
-@@ -1667,7 +1667,7 @@
+@@ -1676,7 +1676,7 @@
   * Add a bed leveling sub-menu for ABL or MBL.
   * Include a guided procedure if manual probing is enabled.
   */
 -//#define LCD_BED_LEVELING
 +#define LCD_BED_LEVELING
- 
+
  #if ENABLED(LCD_BED_LEVELING)
    #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
-@@ -1676,7 +1676,7 @@
+@@ -1685,7 +1685,7 @@
  #endif
- 
+
  // Add a menu item to move between bed corners for manual bed adjustment
 -//#define LEVEL_BED_CORNERS
 +#define LEVEL_BED_CORNERS
- 
+
  #if ENABLED(LEVEL_BED_CORNERS)
    #define LEVEL_CORNERS_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets
-@@ -1737,15 +1737,15 @@
+@@ -1746,15 +1746,15 @@
   * - Allows Z homing only when XY positions are known and trusted.
   * - If stepper drivers sleep, XY homing may be required again before Z homing.
   */
 -//#define Z_SAFE_HOMING
 +#define Z_SAFE_HOMING
- 
+
  #if ENABLED(Z_SAFE_HOMING)
 -  #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing
 -  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing
 +  #define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)    // X point for Z homing when homing all axes (G28).
 +  #define Z_SAFE_HOMING_Y_POINT ((Y_BED_SIZE) / 2)    // Y point for Z homing when homing all axes (G28).
  #endif
- 
+
  // Homing speeds (mm/min)
 -#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
 +#define HOMING_FEEDRATE_MM_M { (100*60), (100*60), (16*60) }
- 
+
  // Validate that endstops are triggered on homing moves
  #define VALIDATE_HOMING_ENDSTOPS
-@@ -1822,7 +1822,7 @@
+@@ -1831,7 +1831,7 @@
   *   M501 - Read settings from EEPROM. (i.e., Throw away unsaved changes)
   *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
   */
@@ -178,7 +169,7 @@ index c50af25e63..8256a02eaa 100644
  //#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
  #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
  #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
-@@ -1856,8 +1856,8 @@
+@@ -1866,8 +1866,8 @@
  // Preheat Constants - Up to 5 are supported without changes
  //
  #define PREHEAT_1_LABEL       "PLA"
@@ -188,30 +179,48 @@ index c50af25e63..8256a02eaa 100644
 +#define PREHEAT_1_TEMP_BED     60
  #define PREHEAT_1_TEMP_CHAMBER 35
  #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
- 
-@@ -2409,7 +2409,7 @@
+
+@@ -2424,7 +2424,7 @@
  //
  // LCD for Melzi Card with Graphical LCD
  //
 -//#define LCD_FOR_MELZI
-+#define LCD_FOR_MELZI
- 
++//#define LCD_FOR_MELZI
+
  //
  // Original Ulticontroller from Ultimaker 2 printer with SSD1309 I2C display and encoder
+@@ -2441,7 +2441,7 @@
+ //
+ // MKS MINI12864 V3 is an alias for FYSETC_MINI_12864_2_1. Type A/B. NeoPixel RGB Backlight.
+ //
+-//#define MKS_MINI_12864_V3
++#define MKS_MINI_12864_V3
+
+ //
+ // MKS LCD12864A/B with graphic controller and SD support. Follows MKS_MINI_12864 pinout.
+@@ -2908,7 +2908,7 @@
+ #endif
+
+ // Support for Adafruit NeoPixel LED driver
+-//#define NEOPIXEL_LED
++#define NEOPIXEL_LED
+ #if ENABLED(NEOPIXEL_LED)
+   #define NEOPIXEL_TYPE   NEO_GRBW // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
+   //#define NEOPIXEL_PIN     4     // LED driving pin
 diff --git a/Marlin/Configuration_adv.h b/Marlin/Configuration_adv.h
-index 6e44f009ed..bb7281208f 100644
+index 2410d8b903..76bad34a27 100644
 --- Marlin/Configuration_adv.h
 +++ Marlin/Configuration_adv.h
-@@ -692,7 +692,7 @@
+@@ -747,7 +747,7 @@
  //
  // For Z set the number of stepper drivers
  //
 -#define NUM_Z_STEPPER_DRIVERS 1   // (1-4) Z options change based on how many
 +#define NUM_Z_STEPPER_DRIVERS 2   // (1-4) Z options change based on how many
- 
+
  #if NUM_Z_STEPPER_DRIVERS > 1
    // Enable if Z motor direction signals are the opposite of Z1
-@@ -1166,13 +1166,13 @@
+@@ -1223,13 +1223,13 @@
   * I2C-based DIGIPOTs (e.g., Azteeg X3 Pro)
   */
  //#define DIGIPOT_MCP4018             // Requires https://github.com/felias-fogg/SlowSoftI2CMaster
@@ -220,15 +229,15 @@ index 6e44f009ed..bb7281208f 100644
  #if EITHER(DIGIPOT_MCP4018, DIGIPOT_MCP4451)
 -  #define DIGIPOT_I2C_NUM_CHANNELS 8  // 5DPRINT:4   AZTEEG_X3_PRO:8   MKS_SBASE:5   MIGHTYBOARD_REVE:5
 +  #define DIGIPOT_I2C_NUM_CHANNELS 5  // 5DPRINT:4   AZTEEG_X3_PRO:8   MKS_SBASE:5   MIGHTYBOARD_REVE:5
- 
+
    // Actual motor currents in Amps. The number of entries must match DIGIPOT_I2C_NUM_CHANNELS.
    // These correspond to the physical drivers, so be mindful if the order is changed.
 -  #define DIGIPOT_I2C_MOTOR_CURRENTS { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 } // AZTEEG_X3_PRO
 +  #define DIGIPOT_I2C_MOTOR_CURRENTS { 1, 1, 0.7, 1, 0.7 }  //  MKS SBASE: 5
- 
+
    //#define DIGIPOT_USE_RAW_VALUES    // Use DIGIPOT_MOTOR_CURRENT raw wiper values (instead of A4988 motor currents)
- 
-@@ -1186,8 +1186,9 @@
+
+@@ -1243,8 +1243,9 @@
     * AZTEEG_X5_MINI_WIFI         0x58              0x5C        MCP4451
     * MIGHTYBOARD_REVE      0x2F (0x5E)                         MCP4018
     */
@@ -238,11 +247,11 @@ index 6e44f009ed..bb7281208f 100644
 +  #define DIGIPOT_I2C_ADDRESS_A 0x2C  // Unshifted slave address for first DIGIPOT
 +  #define DIGIPOT_I2C_ADDRESS_B 0x2D  // Unshifted slave address for second DIGIPOT
  #endif
- 
+
  //===========================================================================
-@@ -1197,7 +1198,7 @@
+@@ -1254,7 +1255,7 @@
  // @section lcd
- 
+
  #if ANY(HAS_LCD_MENU, EXTENSIBLE_UI, HAS_DWIN_E3V2)
 -  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
 +  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 10*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
