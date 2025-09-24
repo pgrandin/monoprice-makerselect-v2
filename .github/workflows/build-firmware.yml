@@ -16,10 +16,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
 
     - name: Build firmware with Docker
       run: |
@@ -58,7 +58,7 @@ jobs:
         echo "Size: $(stat -c%s firmware.bin) bytes" >> build_info.txt
 
     - name: Upload firmware artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: marlin-firmware-${{ github.run_number }}
         path: |
