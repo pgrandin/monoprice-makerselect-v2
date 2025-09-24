@@ -102,6 +102,15 @@ RUN sed -i -e 's@//#define Z_MIN_PROBE_REPEATABILITY_TEST@#define Z_MIN_PROBE_RE
 RUN sed -i -e 's@//#define G26_MESH_VALIDATION@#define G26_MESH_VALIDATION@w changelog' Marlin/Configuration.h && [ -s changelog ]
 RUN sed -i -e 's@//#define Z_STEPPER_AUTO_ALIGN@#define Z_STEPPER_AUTO_ALIGN@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
 
+# Bed size and offset corrections
+# Actual usable bed space: 194x205mm with proper offsets for 0,0 alignment
+RUN sed -i -e 's@#define X_BED_SIZE 200@#define X_BED_SIZE 194@w changelog' Marlin/Configuration.h && [ -s changelog ]
+RUN sed -i -e 's@#define Y_BED_SIZE 200@#define Y_BED_SIZE 205@w changelog' Marlin/Configuration.h && [ -s changelog ]
+RUN sed -i -e 's@#define X_MIN_POS 0@#define X_MIN_POS -15@w changelog' Marlin/Configuration.h && [ -s changelog ]
+RUN sed -i -e 's@#define Y_MIN_POS 0@#define Y_MIN_POS -8@w changelog' Marlin/Configuration.h && [ -s changelog ]
+
+# Enable onboard SD card connection (for OctoPrint firmware updates)
+RUN sed -i -e 's@//#define SDCARD_CONNECTION LCD@#define SDCARD_CONNECTION ONBOARD@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
 
 RUN platformio run -e LPC1768
 
