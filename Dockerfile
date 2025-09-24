@@ -72,11 +72,8 @@ RUN sed -i -e 's@#define DEFAULT_bedKd 305.4@#define DEFAULT_bedKd 470.01@w chan
 RUN sed -i -e 's@//#define BLTOUCH@#define BLTOUCH@w changelog' Marlin/Configuration.h && [ -s changelog ]
 RUN sed -i -e 's@#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }@#define NOZZLE_TO_PROBE_OFFSET { -24, -36, -3.7 }@w changelog' Marlin/Configuration.h && [ -s changelog ]
 RUN sed -i -e 's@//#define Z_SAFE_HOMING@#define Z_SAFE_HOMING@w changelog' Marlin/Configuration.h && [ -s changelog ]
-# Z Safe Homing - center of actual bed accounting for offsets
-# With X: -15 to 194 range, center is at (194 + (-15))/2 = 89.5
-# With Y: -8 to 205 range, center is at (205 + (-8))/2 = 98.5
-RUN sed -i -e 's@#define Z_SAFE_HOMING_X_POINT X_CENTER@#define Z_SAFE_HOMING_X_POINT 90@w changelog' Marlin/Configuration.h && [ -s changelog ]
-RUN sed -i -e 's@#define Z_SAFE_HOMING_Y_POINT Y_CENTER@#define Z_SAFE_HOMING_Y_POINT 99@w changelog' Marlin/Configuration.h && [ -s changelog ]
+RUN sed -i -e 's@#define Z_SAFE_HOMING_X_POINT X_CENTER@#define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)@w changelog' Marlin/Configuration.h && [ -s changelog ]
+RUN sed -i -e 's@#define Z_SAFE_HOMING_Y_POINT Y_CENTER@#define Z_SAFE_HOMING_Y_POINT ((Y_BED_SIZE) / 2)@w changelog' Marlin/Configuration.h && [ -s changelog ]
 
 
 # TFT35
