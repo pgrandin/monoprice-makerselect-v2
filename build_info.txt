@@ -1,0 +1,15 @@
+## Firmware Build Info
+Build Date: Wed Sep 24 22:46:20 UTC 2025
+Git Commit: b0d3d3a4f51d5c4d7cb5eda1e53b13a6d066a376
+Git Branch: main
+
+### Configuration:
+- Board: MKS SBASE (LPC1768)
+- Bed Size: 194x205mm
+- X Offset: -15mm
+- Y Offset: -8mm
+- SD Card: ONBOARD (USB Mass Storage enabled)
+
+### Firmware Details:
+MD5: 6b6e2734a3ac7f8ad30d6789f3a81ea7
+Size: 165228 bytes

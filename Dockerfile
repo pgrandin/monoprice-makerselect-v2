@@ -109,6 +109,15 @@ RUN sed -i -e 's@#define Y_BED_SIZE 200@#define Y_BED_SIZE 205@w changelog' Marl
 RUN sed -i -e 's@#define X_MIN_POS 0@#define X_MIN_POS -15@w changelog' Marlin/Configuration.h && [ -s changelog ]
 RUN sed -i -e 's@#define Y_MIN_POS 0@#define Y_MIN_POS -8@w changelog' Marlin/Configuration.h && [ -s changelog ]
 
+# Adjust probe grid to stay within bed bounds
+# Probe is 24mm RIGHT of nozzle (despite negative offset in config)
+# Min probe X=9 (nozzle at -15), Max probe X=154 (with 40mm right margin)
+RUN sed -i -e 's@#define PROBING_MARGIN 10@#define PROBING_MARGIN 20@w changelog' Marlin/Configuration.h && [ -s changelog ]
+RUN sed -i -e 's@#define PROBING_MARGIN_LEFT PROBING_MARGIN@#define PROBING_MARGIN_LEFT 10@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+RUN sed -i -e 's@#define PROBING_MARGIN_RIGHT PROBING_MARGIN@#define PROBING_MARGIN_RIGHT 40@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+RUN sed -i -e 's@#define PROBING_MARGIN_FRONT PROBING_MARGIN@#define PROBING_MARGIN_FRONT 30@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+RUN sed -i -e 's@#define PROBING_MARGIN_BACK PROBING_MARGIN@#define PROBING_MARGIN_BACK 55@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+
 # Enable onboard SD card connection (for OctoPrint firmware updates)
 RUN sed -i -e 's@//#define SDCARD_CONNECTION LCD@#define SDCARD_CONNECTION ONBOARD@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
 
