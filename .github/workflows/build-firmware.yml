@@ -6,6 +6,8 @@ on:
     paths:
       - 'Dockerfile'
       - '.github/workflows/build-firmware.yml'
+      - 'Configuration.h'
+      - 'Configuration_adv.h'
   pull_request:
     branches: [ main ]
   workflow_dispatch:  # Allow manual trigger
