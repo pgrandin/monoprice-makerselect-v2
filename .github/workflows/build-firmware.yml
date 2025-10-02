@@ -6,8 +6,8 @@ on:
     paths:
       - 'Dockerfile'
       - '.github/workflows/build-firmware.yml'
-      - 'Configuration.h'
-      - 'Configuration_adv.h'
+      - 'apply_marlin_config.sh'
+      - 'gen_patch.sh'
   pull_request:
     branches: [ main ]
   workflow_dispatch:  # Allow manual trigger
@@ -82,7 +82,7 @@ jobs:
           **Marlin Version:** 2.1.2.5
 
           ### Features:
-          - Corrected bed size: 220x220mm
+          - Corrected bed size: 194x205mm
           - Corrected X/Y offsets for proper bed alignment
           - USB SD card support for OctoPrint updates
           - BLTouch support
