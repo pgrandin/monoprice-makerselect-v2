@@ -118,6 +118,9 @@ RUN sed -i -e 's@#define PROBING_MARGIN_RIGHT PROBING_MARGIN@#define PROBING_MAR
 RUN sed -i -e 's@#define PROBING_MARGIN_FRONT PROBING_MARGIN@#define PROBING_MARGIN_FRONT 30@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
 RUN sed -i -e 's@#define PROBING_MARGIN_BACK PROBING_MARGIN@#define PROBING_MARGIN_BACK 55@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
 
+# Extruder auto fan - turns off when hotend temp < 50C (wired to E2/P2_06)
+RUN sed -i -e 's@#define E0_AUTO_FAN_PIN -1@#define E0_AUTO_FAN_PIN P2_06@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
+
 # Enable onboard SD card connection (for OctoPrint firmware updates)
 RUN sed -i -e 's@//#define SDCARD_CONNECTION LCD@#define SDCARD_CONNECTION ONBOARD@w changelog' Marlin/Configuration_adv.h && [ -s changelog ]
 

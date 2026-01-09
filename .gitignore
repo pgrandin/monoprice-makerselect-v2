@@ -1,0 +1,14 @@
+Configuration.h
+Configuration_adv.h
+firmware.bin
+*.zip
+*.bin
+Marlin/
+MarlinSource/
+build_info.txt
+
+# CI artifacts
+marlin-firmware-*/
+
+# Slicer outputs
+*.gcode
